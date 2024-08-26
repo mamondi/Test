@@ -21,7 +21,7 @@ namespace Test
         public MainWindow()
         {
             InitializeComponent();
-            currentGameMode = GameMode.PlayerVsComputer; // За замовчуванням встановимо режим гри Player vs Computer
+            currentGameMode = GameMode.PlayerVsComputer; 
         }
 
         private void OnPvCClick(object sender, RoutedEventArgs e)
@@ -79,7 +79,6 @@ namespace Test
                     break;
 
                 case GameMode.ComputerVsComputer:
-                    // Для цього режиму логіка виконується окремо
                     break;
             }
         }
@@ -94,17 +93,14 @@ namespace Test
                     byte[] data = Encoding.ASCII.GetBytes(move);
                     stream.Write(data, 0, data.Length);
 
-                    // Отримання відповіді
                     byte[] buffer = new byte[256];
                     int bytesRead = stream.Read(buffer, 0, buffer.Length);
                     string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
-                    // Розділення відповіді
                     var parts = response.Split(':');
                     string computerMove = parts[0];
                     string result = parts[1];
 
-                    // Оновлення UI
                     ComputerMoveText.Text = $"Computer chose: {computerMove}";
                     ResultText.Text = $"Result: {result}";
                 }
@@ -137,18 +133,15 @@ namespace Test
             ResultText.Text = $"Result: {result}";
             ComputerMoveText.Text = $"Player 1: {player1Move}, Player 2: {player2Move}";
 
-            // Скидання для наступного раунду
             player1Move = null;
             player2Move = null;
         }
 
         private void StartComputerVsComputerGame()
         {
-            // Комп'ютер обирає два випадкових ходи
             var computer1Move = GetRandomMove();
             var computer2Move = GetRandomMove();
 
-            // Визначення переможця
             string result;
 
             if (computer1Move == computer2Move)
